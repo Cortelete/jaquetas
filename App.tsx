@@ -10,6 +10,8 @@ import Faq from './components/Faq';
 import Footer from './components/Footer';
 
 function App() {
+  const jacketInfoRef = React.useRef<HTMLDivElement>(null);
+  const pricingRef = React.useRef<HTMLDivElement>(null);
   const orderFormRef = React.useRef<HTMLDivElement>(null);
   const faqRef = React.useRef<HTMLDivElement>(null);
 
@@ -31,6 +33,14 @@ function App() {
     }
   };
 
+  const scrollToJacketInfo = () => {
+    jacketInfoRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
+  const scrollToPricing = () => {
+    pricingRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const scrollToOrderForm = () => {
     orderFormRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -41,11 +51,22 @@ function App() {
 
   return (
     <div className="bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-sans antialiased">
-      <Header onOrderClick={scrollToOrderForm} theme={theme} toggleTheme={toggleTheme} />
+      <Header
+        onModelsClick={scrollToJacketInfo}
+        onPricingClick={scrollToPricing}
+        onFaqClick={scrollToFaq}
+        onOrderClick={scrollToOrderForm}
+        theme={theme}
+        toggleTheme={toggleTheme}
+      />
       <main>
         <Hero onOrderClick={scrollToOrderForm} />
-        <JacketInfo />
-        <Pricing onFaqClick={scrollToFaq} />
+        <div ref={jacketInfoRef}>
+          <JacketInfo />
+        </div>
+        <div ref={pricingRef}>
+          <Pricing onFaqClick={scrollToFaq} />
+        </div>
         <div ref={orderFormRef}>
           <OrderForm />
         </div>
