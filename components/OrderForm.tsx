@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { OrderFormData } from '../types';
-import { SIZES, FIRST_BATCH_PRICE, REGULAR_PRICE, INSTALLMENTS_2X_PRICE, INSTALLMENTS_3X_PRICE } from '../constants';
+import { SIZES, FIRST_BATCH_PRICE, REGULAR_PRICE, INSTALLMENTS_2X_PRICE, INSTALLMENTS_3X_PRICE, PERIOD_OPTIONS } from '../constants';
 import { generateDesignIdea } from '../services/geminiService';
 import Modal from './Modal';
 import SparklesIcon from './icons/SparklesIcon';
@@ -101,7 +101,7 @@ const OrderForm: React.FC = () => {
         
         *DADOS ACADÊMICOS:*
         - *Faculdade:* ${formData.faculty}
-        - *Período:* ${formData.period}º
+        - *Período:* ${formData.period}
         - *Turma:* ${formData.class}
         
         *DETALHES DO PEDIDO:*
@@ -132,7 +132,7 @@ const OrderForm: React.FC = () => {
             <p><strong>Nome:</strong> {formData.name}</p>
             <p><strong>Email:</strong> {formData.email}</p>
             <p><strong>Celular:</strong> {formData.phone}</p>
-            <p><strong>Curso:</strong> {formData.faculty}, {formData.period}º Período, Turma {formData.class}</p>
+            <p><strong>Curso:</strong> {formData.faculty}, {formData.period}, Turma {formData.class}</p>
             <hr className="border-slate-200 dark:border-slate-600" />
             <p><strong>Modelo:</strong> {formData.jacketModel === 'veteran' ? 'Veterano' : 'Normal'}</p>
             <p><strong>Tamanho:</strong> {formData.size}</p>
@@ -164,7 +164,10 @@ const OrderForm: React.FC = () => {
                     <FormSection title="Dados Acadêmicos">
                         <div className="grid md:grid-cols-3 gap-4">
                             <Input name="faculty" placeholder="Faculdade" value={formData.faculty} onChange={handleChange} required />
-                            <Input name="period" type="number" placeholder="Período" value={formData.period} onChange={handleChange} required />
+                            <Select name="period" value={formData.period} onChange={handleChange} required>
+                                <option value="" disabled>Selecione seu nível...</option>
+                                {PERIOD_OPTIONS.map(p => <option key={p} value={p}>{p}</option>)}
+                            </Select>
                             <Input name="class" placeholder="Turma" value={formData.class} onChange={handleChange} required />
                         </div>
                     </FormSection>

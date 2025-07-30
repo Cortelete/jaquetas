@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 export const FIRST_BATCH_PRICE = 180.00;
@@ -7,6 +6,17 @@ export const INSTALLMENTS_2X_PRICE = 120.00;
 export const INSTALLMENTS_3X_PRICE = 85.00;
 
 export const SIZES = ['PP', 'P', 'M', 'G', 'GG', 'XG'];
+
+export const PERIOD_OPTIONS = [
+  '1º período: Calouro Júnior',
+  '2º período: Calouro Sênior',
+  '3º período: Calouro Pleno',
+  '4º período: Meio Engenheiro(a)',
+  '5º período: Sobrevivente do TCC 1',
+  '6º período: Mestre dos Códigos',
+  '7º período: Quase Lá!',
+  '8º período: Veterano(a) de Guerra',
+];
 
 export const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
   {
