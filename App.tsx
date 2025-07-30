@@ -46,7 +46,7 @@ function App() {
         <JacketInfo />
         <Pricing onFaqClick={scrollToFaq} />
         <div ref={orderFormRef}>
-          <OrderForm />
+          <OrderForm theme={theme} />
         </div>
         <Contact />
         <div ref={faqRef}>

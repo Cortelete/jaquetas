@@ -1,11 +1,14 @@
-
 import React from 'react';
 
-const OrderForm: React.FC = () => {
+interface OrderFormProps {
+  theme: string;
+}
+
+const OrderForm: React.FC<OrderFormProps> = ({ theme }) => {
   // ATENÇÃO: O ID do formulário agora é lido a partir de uma variável de ambiente.
   // Configure VITE_JOTFORM_ID no seu arquivo .env.local e nas configurações da Vercel.
   const jotformId = import.meta.env?.VITE_JOTFORM_ID;
-  const jotformUrl = jotformId ? `https://form.jotform.com/${jotformId}?isdark=${document.documentElement.classList.contains('dark')}` : '';
+  const jotformUrl = jotformId ? `https://form.jotform.com/${jotformId}?isdark=${theme === 'dark'}` : '';
 
   return (
     <section id="order" className="py-20 bg-gray-50 dark:bg-slate-800">
@@ -25,6 +28,7 @@ const OrderForm: React.FC = () => {
             {jotformId && (
               <div className="relative" style={{paddingTop: '120%'}}> {/* Aspect ratio for form height */}
                <iframe
+                  key={jotformId + theme} // Force re-render on theme change
                   id="JotFormIFrame"
                   title="Encomenda de Jaqueta"
                   src={jotformUrl}
@@ -37,7 +41,7 @@ const OrderForm: React.FC = () => {
                       height: "100%",
                       border: "none",
                   }}
-                  scrolling="no"
+                  scrolling="auto" // Allow scrolling if form is longer than the container
                >
                </iframe>
               </div>
