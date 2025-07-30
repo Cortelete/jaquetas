@@ -6,6 +6,7 @@ export const REGULAR_PRICE = 220.00;
 export const INSTALLMENTS_2X_PRICE = 120.00;
 export const INSTALLMENTS_3X_PRICE = 85.00;
 
+export const SIZES = ['PP', 'P', 'M', 'G', 'GG', 'XG'];
 
 export const FAQ_ITEMS: { question: string; answer: React.ReactNode }[] = [
   {

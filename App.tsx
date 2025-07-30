@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -46,7 +47,7 @@ function App() {
         <JacketInfo />
         <Pricing onFaqClick={scrollToFaq} />
         <div ref={orderFormRef}>
-          <OrderForm theme={theme} />
+          <OrderForm />
         </div>
         <Contact />
         <div ref={faqRef}>
