@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jaqueta Eng. de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom scrollbar for a more modern look */
+      :root {
+        --scrollbar-track-light: #f1f5f9; /* slate-100 */
+        --scrollbar-thumb-light: #ec4899; /* pink-500 */
+        --scrollbar-track-dark: #1e293b; /* slate-800 */
+        --scrollbar-thumb-dark: #22d3ee; /* cyan-400 */
+        --glow-color: #22d3ee;
+        --glow-color-2: #ec4899;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      /* Light theme scrollbar (default) */
+      ::-webkit-scrollbar-track { background: var(--scrollbar-track-light); }
+      ::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-light); border-radius: 20px; border: 2px solid var(--scrollbar-track-light); }
+
+      /* Dark theme scrollbar */
+      html.dark ::-webkit-scrollbar-track { background: var(--scrollbar-track-dark); }
+      html.dark ::-webkit-scrollbar-thumb { background-color: var(--scrollbar-thumb-dark); border-radius: 20px; border: 2px solid var(--scrollbar-track-dark); }
+
+      /* Define CSS property for smooth animation of conic gradient */
+      @property --glow-angle {
+        syntax: "<angle>";
+        initial-value: 0deg;
+        inherits: false;
+      }
+
+      /* Animation for glowing border */
+      @keyframes rotate-glow {
+        0% { --glow-angle: 0deg; }
+        100% { --glow-angle: 360deg; }
+      }
+      
+      .glowing-border::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 1rem; /* 16px */
+        border: 2px solid transparent;
+        /* The RGB snake effect: a moving segment of a rainbow gradient */
+        background: conic-gradient(
+          from var(--glow-angle),
+          transparent 0 60%,
+          var(--glow-color-2), /* pink */
+          var(--glow-color),   /* cyan */
+          var(--glow-color-2)
+        ) border-box;
+        -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        animation: rotate-glow 3s linear infinite;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+      }
+      .glowing-border:hover::before {
+        opacity: 1;
+      }
+
+      /* Animation for light sweep effect */
+      .light-sweep {
+        position: relative;
+        overflow: hidden;
+      }
+      .light-sweep::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          to right,
+          transparent 0%,
+          rgba(255, 255, 255, 0.1) 48%,
+          rgba(255, 255, 255, 0.2) 50%,
+          rgba(255, 255, 255, 0.1) 52%,
+          transparent 100%
+        );
+        transform: translateX(-100%) skewX(-15deg);
+        transition: transform 0.8s ease-in-out;
+        pointer-events: none;
+      }
+      .light-sweep:hover::after {
+        transform: translateX(100%) skewX(-15deg);
+      }
+
+    </style>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      // Default to dark theme as per original setup.
+      // We only toggle the 'dark' class. No 'dark' class means light theme.
+      (function() {
+        if (localStorage.getItem('theme') === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.11.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/",
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom": "https://esm.sh/react-dom@^19.1.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="transition-colors duration-300">
+    <div id="root"></div>
+    <div id="modal-root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
