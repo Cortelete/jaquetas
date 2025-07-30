@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ onOrderClick, theme, toggleTheme }) => 
     <header className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm z-50 shadow-lg shadow-cyan-500/10 dark:shadow-pink-500/10">
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <h1 className="text-xl font-bold tracking-wider bg-gradient-to-r from-cyan-400 to-pink-500 bg-clip-text text-transparent transition-all duration-300 hover:scale-105 hover:animate-pulse">
-          Jaqueta Eng. Software
+          VetJaqs
         </h1>
         <div className="flex items-center gap-4">
           <button

@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             @inteligenciarte.ia
           </a>
         </p>
-        <p className="text-sm mt-4">&copy; {new Date().getFullYear()} Encomenda Jaqueta Eng. Software. Todos os direitos reservados.</p>
+        <p className="text-sm mt-4">&copy; {new Date().getFullYear()} VetJaqs. Todos os direitos reservados.</p>
       </div>
     </footer>
   );
