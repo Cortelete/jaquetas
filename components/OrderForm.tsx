@@ -2,9 +2,7 @@
 import React, { useState } from 'react';
 import { OrderFormData } from '../types';
 import { SIZES, FIRST_BATCH_PRICE, REGULAR_PRICE, INSTALLMENTS_2X_PRICE, INSTALLMENTS_3X_PRICE, PERIOD_OPTIONS } from '../constants';
-import { generateDesignIdea } from '../services/geminiService';
 import Modal from './Modal';
-import SparklesIcon from './icons/SparklesIcon';
 
 // Sub-componentes para clareza
 const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props} className="w-full bg-gray-100 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-cyan-500 dark:focus:ring-pink-500 transition-all outline-none" />;
@@ -30,8 +28,6 @@ const OrderForm: React.FC = () => {
         jacketModel: 'normal', veteranConfirmation: false, size: 'M',
         paymentOption: 'first_batch', installmentsPlan: '', extras: '',
     });
-    const [isGenerating, setIsGenerating] = useState(false);
-    const [error, setError] = useState('');
     const [showConfirmation, setShowConfirmation] = useState(false);
 
     const formatPhoneNumber = (value: string) => {
@@ -52,19 +48,6 @@ const OrderForm: React.FC = () => {
     const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formattedPhoneNumber = formatPhoneNumber(e.target.value);
         setFormData(prev => ({ ...prev, phone: formattedPhoneNumber }));
-    };
-
-    const handleGenerateIdea = async () => {
-        setIsGenerating(true);
-        setError('');
-        try {
-            const idea = await generateDesignIdea(formData.extras || 'um tema geek ou de programação');
-            setFormData(prev => ({ ...prev, extras: idea }));
-        } catch (err) {
-            setError('Falha ao gerar ideia.');
-        } finally {
-            setIsGenerating(false);
-        }
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -200,12 +183,7 @@ const OrderForm: React.FC = () => {
                     </FormSection>
                     
                     <FormSection title="Extras e Sugestões">
-                        <TextArea name="extras" placeholder="Algum detalhe extra? Bordado de nome/nickname? Deixe sua sugestão aqui ou peça uma ideia para a nossa IA!" value={formData.extras} onChange={handleChange} />
-                        <button type="button" onClick={handleGenerateIdea} disabled={isGenerating} className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                            <SparklesIcon className="w-5 h-5" />
-                            {isGenerating ? 'Gerando Ideia...' : 'Gerar Ideia com IA'}
-                        </button>
-                        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+                        <TextArea name="extras" placeholder="Algum detalhe extra? Bordado de nome/nickname? Deixe sua sugestão aqui." value={formData.extras} onChange={handleChange} />
                     </FormSection>
 
                     <button type="submit" className="w-full bg-gradient-to-r from-cyan-500 to-pink-500 hover:from-cyan-400 hover:to-pink-400 text-white font-bold py-3 px-8 rounded-lg text-lg shadow-lg hover:shadow-cyan-400/50 dark:hover:shadow-pink-500/50 transform hover:scale-105 transition-all duration-300">
